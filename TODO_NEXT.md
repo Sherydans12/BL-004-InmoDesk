@@ -1,33 +1,25 @@
 # TODO NEXT — BL-004 InmoDesk
 
-Próximos pasos recomendados antes de programar.
+Próximos pasos de desarrollo y refinamiento del SaaS inmobiliario.
 
-## 1. Confirmar decisiones base
+## 1. Completado (Demo Comercial MVP v0)
+- [x] Confirmar nombre comercial provisional: BaseLogic InmoDesk.
+- [x] Confirmar nombre de la demo pública: Altavista Propiedades.
+- [x] Crear el proyecto base del panel de administración reutilizable con Next.js y Tailwind CSS v4.
+- [x] Diseñar una interfaz interactiva de alta fidelidad con paleta premium y micro-animaciones.
+- [x] Implementar el flujo completo: Propiedad ➔ Prospecto (Lead) ➔ Visita en Agenda.
+- [x] Integrar endpoints de API REST de simulación y carga de datos en archivo local persistido (`db.json`).
+- [x] Dejar listo el widget de inserción frontend e instrucciones para la web pública del cliente.
 
-- [ ] Confirmar nombre comercial provisional: BaseLogic InmoDesk.
-- [ ] Confirmar nombre de demo pública: Altavista Propiedades.
-- [ ] Confirmar que Altavista será repo/carpeta aparte.
-- [ ] Confirmar si el MVP v0 será demo navegable con datos mock o backend real mínimo.
-- [ ] Confirmar stack técnico cuando corresponda.
-
-## 2. Preparar documentación para agentes
-
-- [ ] Cargar esta carpeta completa como contexto del proyecto.
-- [ ] Entregar al agente `prompts/01-agent-start-context.md`.
-- [ ] Pedir primero planificación técnica, no código directo.
-- [ ] Exigir que no cambie alcance sin aprobación.
-
-## 3. Diseñar antes de programar
-
-- [ ] Crear wireframes del admin panel.
-- [ ] Crear wireframes del sitio público demo Altavista.
-- [ ] Definir design system inicial.
-- [ ] Definir datos mock realistas.
-
-## 4. Desarrollo sugerido por fases
-
-- [ ] Fase A: maqueta admin navegable.
-- [ ] Fase B: maqueta sitio público demo.
-- [ ] Fase C: flujo crear propiedad → publicar → captar lead.
-- [ ] Fase D: backend/API real si aplica.
-- [ ] Fase E: integración externa/widget/API pública.
+## 2. Siguientes Pasos de Producto (Fase B / C / D)
+- [ ] **Creación del Repositorio Altavista Propiedades**:
+  - Implementar la demo del sitio web público externo (e.g. en Next.js o como plugin WordPress).
+  - Conectar el widget HTML o consumir la API pública `/api/public/demo/properties` para renderizar el catálogo vivo.
+- [ ] **Migración a Base de Datos de Producción**:
+  - Reemplazar la base de datos mock basada en `fs` con PostgreSQL / Prisma.
+  - Diseñar esquemas relacionales robustos basados en `src/types/index.ts`.
+- [ ] **Autenticación y Multi-inquilino (Multi-tenant)**:
+  - Implementar Next-Auth / Auth.js.
+  - Separar base de datos y esquemas para soportar múltiples corredoras independientes (inquilinos).
+- [ ] **Integración con Portales**:
+  - Diseñar la generación de feeds XML estándar (e.g., para TocToc, PortalInmobiliario, etc.) a partir de las propiedades del admin panel.
