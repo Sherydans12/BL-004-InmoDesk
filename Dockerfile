@@ -17,6 +17,11 @@ COPY apps/admin/package*.json ./apps/admin/
 # de paquetes nativos opcionales por plataforma.
 RUN npm install --include=dev --include=optional --no-audit --no-fund
 
+# Refuerzo para Docker/Linux x64 GNU cuando el lockfile viene de Windows.
+RUN npm install --workspace=apps/admin --include=optional --no-audit --no-fund --no-save \
+  lightningcss-linux-x64-gnu@1.32.0 \
+  @tailwindcss/oxide-linux-x64-gnu@4.3.2
+
 # Copiar codigo fuente
 COPY . .
 

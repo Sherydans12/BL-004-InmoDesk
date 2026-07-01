@@ -46,6 +46,8 @@ Esta instalacion incluye `devDependencies` y `optionalDependencies` durante el b
 
 El diagnostico de `lightningcss` se ejecuta desde `apps/admin`, porque esa dependencia queda instalada bajo el workspace de Next.js.
 
+Como el lockfile puede generarse en Windows, el Dockerfile tambien instala explicitamente los paquetes nativos Linux x64 GNU `lightningcss-linux-x64-gnu@1.32.0` y `@tailwindcss/oxide-linux-x64-gnu@4.3.2` con `--no-save` dentro del workspace `apps/admin`.
+
 ---
 
 ## Puerto expuesto
