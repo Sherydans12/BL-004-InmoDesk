@@ -40,7 +40,9 @@ Si existe la variable `NIXPACKS_NODE_VERSION` en Coolify, eliminarla.
 
 > Estos comandos se ejecutan desde la **raíz del monorepo**. Los scripts de `package.json` raíz delegan automáticamente al workspace `apps/admin`.
 
-El Dockerfile usa `node:22.13.0-bookworm-slim`, ejecuta `npm ci`, compila con `npm run build` y arranca con `npm run start`.
+El Dockerfile usa `node:22.13.0-bookworm-slim`, muestra diagnostico de Node/npm, instala dependencias con `npm install --include=dev --include=optional --no-audit --no-fund`, compila con `npm run build` y arranca con `npm run start`.
+
+Esta instalacion incluye `devDependencies` y `optionalDependencies` durante el build porque Tailwind CSS 4 usa `@tailwindcss/postcss` y `lightningcss`, que dependen de paquetes nativos opcionales por plataforma Linux. `NODE_ENV=production` se establece recien despues del build para no omitir dependencias necesarias.
 
 ---
 
