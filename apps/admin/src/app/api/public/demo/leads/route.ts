@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { saveLead, getPropertyById, getPropertyBySlug } from '@/services/db';
+import { saveLead, getPropertyById, getPropertyBySlug, isPubliclyAvailableProperty } from '@/services/db';
 import { Lead } from '@/types';
 
 const CORS_HEADERS = {
@@ -45,10 +45,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate that the property is published
-    if (!targetProperty.isPublished) {
+    // Validate that the property is publicly available
+    if (!isPubliclyAvailableProperty(targetProperty)) {
       return NextResponse.json(
-        { error: 'La propiedad solicitada no se encuentra publicada.' },
+        { error: 'La propiedad solicitada no se encuentra disponible públicamente.' },
         { status: 400, headers: CORS_HEADERS }
       );
     }

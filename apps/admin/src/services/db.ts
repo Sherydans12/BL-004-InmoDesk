@@ -49,6 +49,15 @@ export function getPropertyBySlug(slug: string): Property | undefined {
   return getProperties().find(p => p.slug === slug);
 }
 
+export function isPubliclyAvailableProperty(property: Property | undefined): property is Property {
+  if (!property) return false;
+  return (
+    property.isPublished === true &&
+    property.status !== 'borrador' &&
+    property.status !== 'archivada'
+  );
+}
+
 export function saveProperty(property: Property): void {
   const db = readDb();
   const index = db.properties.findIndex(p => p.id === property.id);

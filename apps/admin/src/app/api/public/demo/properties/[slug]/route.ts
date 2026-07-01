@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getPropertyBySlug } from '@/services/db';
+import { getPropertyBySlug, isPubliclyAvailableProperty } from '@/services/db';
 
 export async function GET(
   request: Request,
@@ -9,9 +9,9 @@ export async function GET(
     const { slug } = await params;
     const property = getPropertyBySlug(slug);
 
-    if (!property || !property.isPublished) {
+    if (!isPubliclyAvailableProperty(property)) {
       return NextResponse.json(
-        { error: 'Property not found or not published' },
+        { error: 'Property not found or not available publicly' },
         {
           status: 404,
           headers: {

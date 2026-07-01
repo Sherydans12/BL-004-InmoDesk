@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getProperties } from '@/services/db';
+import { getProperties, isPubliclyAvailableProperty } from '@/services/db';
 
 export async function GET() {
   try {
     const allProperties = getProperties();
     // Filter only published properties
-    const publishedProperties = allProperties.filter(p => p.isPublished && p.status !== 'borrador' && p.status !== 'archivada');
+    const publishedProperties = allProperties.filter(isPubliclyAvailableProperty);
     
     // Map properties to remove internal/confidential fields
     const publicProperties = publishedProperties.map(p => {

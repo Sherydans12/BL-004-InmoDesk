@@ -1,5 +1,13 @@
 # Changelog — BL-004 InmoDesk
 
+## 0.1.2 — Reglas de Publicación Homogéneas
+
+- **Función Utilitaria Reutilizable**: Creada la función `isPubliclyAvailableProperty` (con type guard en TypeScript) que centraliza las reglas de disponibilidad pública (la propiedad debe existir, `isPublished === true`, y su estado no debe ser `borrador` ni `archivada`).
+- **Alineación de Endpoints Públicos**: 
+  - `GET /api/public/demo/properties`: Utiliza la nueva función utilitaria para filtrar el catálogo.
+  - `GET /api/public/demo/properties/[slug]`: Responde con `404 Not Found` si la propiedad no existe o no está públicamente disponible.
+  - `POST /api/public/demo/leads`: Responde con `400 Bad Request` y el mensaje `"La propiedad solicitada no se encuentra disponible públicamente."` si la propiedad referenciada existe internamente pero no está disponible de forma pública.
+
 ## 0.1.1 — Estabilización Técnica y Contrato API (Fase 1.5)
 
 - **Asociación Dinámica de Leads**: Modificado el endpoint POST `/api/public/demo/leads` para resolver propiedades por `propertySlug` o `propertyId`. Añadidas validaciones de existencia y de estado publicado (`isPublished === true`).
