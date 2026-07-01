@@ -14,7 +14,19 @@ https://inmodesk-demo.baselogic.cl
 
 ## Build Pack
 
-**Nixpacks** (recomendado) o **Dockerfile** si se prefiere control total.
+**Dockerfile** (recomendado).
+
+Configurar en Coolify:
+
+```txt
+Build Pack: Dockerfile
+Dockerfile Path: ./Dockerfile
+Port: 3000
+```
+
+No usar Nixpacks para este proyecto. Next.js 16 requiere una version de Node mas nueva que Node 18, `NIXPACKS_NODE_VERSION=22` puede resolver a Node 22.11.0 y algunas dependencias requieren `^22.13.0`, y `NIXPACKS_NODE_VERSION=24` puede fallar si Nixpacks no encuentra `nodejs_24`.
+
+Si existe la variable `NIXPACKS_NODE_VERSION` en Coolify, eliminarla.
 
 ---
 
@@ -27,6 +39,8 @@ https://inmodesk-demo.baselogic.cl
 | Start   | `npm run start`   |
 
 > Estos comandos se ejecutan desde la **raíz del monorepo**. Los scripts de `package.json` raíz delegan automáticamente al workspace `apps/admin`.
+
+El Dockerfile usa `node:22.13.0-bookworm-slim`, ejecuta `npm ci`, compila con `npm run build` y arranca con `npm run start`.
 
 ---
 

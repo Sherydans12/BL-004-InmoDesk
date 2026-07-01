@@ -64,7 +64,9 @@ InmoDesk expone una API pública y segura para conectar directamente tu catálog
 
 Dominio sugerido: `https://inmodesk-demo.baselogic.cl`
 
-**Build Pack:** Nixpacks o Dockerfile
+**Build Pack recomendado:** Dockerfile
+
+**Dockerfile Path:** `./Dockerfile`
 
 **Comandos:**
 
@@ -84,6 +86,8 @@ INMODESK_DB_FILE_PATH=/app/storage/db.json
 ```
 
 **Persistent Storage:** Montar volumen en `/app/storage`
+
+**Importante:** no usar Nixpacks para este deploy. Next.js 16 requiere una version de Node mas nueva que la disponible por defecto, y el Dockerfile fija explicitamente `node:22.13.0-bookworm-slim`. Si existe la variable `NIXPACKS_NODE_VERSION` en Coolify, eliminarla.
 
 **Verificación:**
 - `GET /api/health` → `{ "status": "ok", "service": "BL-004 InmoDesk", "timestamp": "..." }`
