@@ -71,6 +71,9 @@ export default function Dashboard() {
   const activeProperties = properties.filter(p => p.status === 'disponible' || p.status === 'reservada');
   const publishedProperties = properties.filter(p => p.isPublished);
   const newLeadsCount = leads.filter(l => l.status === 'nuevo').length;
+  const propertyLeadsCount = leads.filter(l => !l.leadType || l.leadType === 'property_interest').length;
+  const contactLeadsCount = leads.filter(l => l.leadType === 'general_contact').length;
+  const ownerLeadsCount = leads.filter(l => l.leadType === 'owner_capture').length;
   
   // Calculate commission estimate in UF (based on properties in 'disponible' or 'reservada' times commission)
   const potentialCommissionUF = properties
@@ -168,15 +171,16 @@ export default function Dashboard() {
 
           {/* Card 2 */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between hover:shadow-md transition-all duration-200">
-            <div className="space-y-1">
+            <div className="space-y-1 flex-1">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Leads Nuevos</span>
               <p className="text-3xl font-extrabold text-slate-900">{newLeadsCount}</p>
-              <div className="text-[10px] text-slate-500 flex items-center gap-1 font-medium">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>
-                Total de {leads.length} interesados registrados
+              <div className="text-[10px] text-slate-500 flex flex-wrap gap-x-2 gap-y-0.5 font-medium mt-1">
+                <span className="flex items-center gap-0.5"><span className="h-1.5 w-1.5 rounded-full bg-teal-500"></span>Prop: {propertyLeadsCount}</span>
+                <span className="flex items-center gap-0.5"><span className="h-1.5 w-1.5 rounded-full bg-blue-550"></span>Cont: {contactLeadsCount}</span>
+                <span className="flex items-center gap-0.5"><span className="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Propia: {ownerLeadsCount}</span>
               </div>
             </div>
-            <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+            <div className="h-12 w-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 shrink-0">
               <Users className="h-5 w-5" />
             </div>
           </div>
@@ -296,8 +300,12 @@ export default function Dashboard() {
                             <Link href={`/properties/${linkedProp.id}`} className="hover:text-teal-600 transition-colors">
                               {linkedProp.title}
                             </Link>
+                          ) : lead.leadType === 'general_contact' ? (
+                            <span className="text-blue-600 font-semibold text-[10px]">Consulta general</span>
+                          ) : lead.leadType === 'owner_capture' ? (
+                            <span className="text-amber-600 font-semibold text-[10px]">Captación propietario</span>
                           ) : (
-                            <span className="text-slate-400 italic">No especificada</span>
+                            <span className="text-slate-450 italic">No especificada</span>
                           )}
                         </td>
                         <td className="py-3">
@@ -307,7 +315,12 @@ export default function Dashboard() {
                             {leadStatusLabels[lead.status as keyof typeof leadStatusLabels]}
                           </span>
                         </td>
-                        <td className="py-3 capitalize text-slate-500">{lead.source}</td>
+                        <td className="py-3 capitalize text-slate-500">
+                          {lead.source === 'web' ? 'Web Altavista' : 
+                           lead.source === 'web_contact' ? 'Contacto' : 
+                           lead.source === 'web_owner' ? 'Propietario' : 
+                           lead.source}
+                        </td>
                         <td className="py-3 text-slate-500 max-w-[200px] truncate">{lead.nextAction || 'Sin acción asignada'}</td>
                       </tr>
                     );

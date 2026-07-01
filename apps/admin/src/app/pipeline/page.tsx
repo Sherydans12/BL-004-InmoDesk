@@ -165,8 +165,16 @@ export default function PipelineBoard() {
                                   {linkedProp.title}
                                   <ExternalLink className="h-2.5 w-2.5" />
                                 </Link>
+                              ) : lead.leadType === 'general_contact' ? (
+                                <span className="text-[10px] font-semibold text-blue-600">
+                                  Consulta general
+                                </span>
+                              ) : lead.leadType === 'owner_capture' ? (
+                                <span className="text-[10px] font-semibold text-amber-600 block truncate">
+                                  Propietario — {lead.propertyType ? `${lead.propertyType.charAt(0).toUpperCase() + lead.propertyType.slice(1)}` : 'Propiedad'} en {lead.propertyComuna || 'comuna no especificada'}
+                                </span>
                               ) : (
-                                <span className="text-[9px] text-slate-400 italic">Interés General</span>
+                                <span className="text-[9px] text-slate-400 italic">Sin propiedad asociada</span>
                               )}
                             </div>
 
@@ -191,7 +199,10 @@ export default function PipelineBoard() {
 
                               {/* Channel badge */}
                               <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-widest">
-                                {lead.source === 'web' ? 'Web' : lead.source}
+                                {lead.source === 'web' ? 'Web' : 
+                                 lead.source === 'web_contact' ? 'Contacto' : 
+                                 lead.source === 'web_owner' ? 'Propietario' : 
+                                 lead.source}
                               </span>
 
                               {/* Next stage button */}

@@ -48,12 +48,21 @@ export interface Lead {
   email: string;
   phone: string;
   status: 'nuevo' | 'contactado' | 'visita_agendada' | 'visito' | 'en_negociacion' | 'cerrado' | 'perdido';
-  source: 'web' | 'manual' | 'portal';
+  source: 'web' | 'manual' | 'portal' | 'web_contact' | 'web_owner';
   propertyId?: string;
   agentName: string;
   nextAction?: string;
   notes?: string;
   createdAt: string;
+  leadType?: 'property_interest' | 'general_contact' | 'owner_capture';
+  subject?: string;
+  message?: string;
+  propertyType?: string;
+  operationIntent?: 'venta' | 'arriendo' | 'ambos' | 'no_definido';
+  propertyComuna?: string;
+  propertyAddress?: string;
+  estimatedPrice?: number;
+  preferredContactMethod?: 'telefono' | 'email' | 'whatsapp';
 }
 
 export interface Visit {

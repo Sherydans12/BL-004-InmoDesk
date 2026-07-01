@@ -66,7 +66,8 @@ export async function POST(request: Request) {
       agentName: targetProperty.agentName || 'Sofía Valdés',
       nextAction: 'Llamar para calificar interesado web',
       notes: leadNotes,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      leadType: 'property_interest'
     };
 
     saveLead(newLead);

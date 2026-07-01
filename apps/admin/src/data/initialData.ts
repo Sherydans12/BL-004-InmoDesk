@@ -493,7 +493,44 @@ export const initialData: DbSchema = {
       agentName: 'Sofía Valdés',
       nextAction: 'Llamar por primera vez para calificar requerimiento',
       notes: 'Ingresó por formulario de contacto solicitando más detalles del depto de Cerro Colorado.',
-      createdAt: '2026-06-30T17:30:00Z'
+      createdAt: '2026-06-30T17:30:00Z',
+      leadType: 'property_interest'
+    },
+    {
+      id: 'lead-9',
+      name: 'Nicolás Sena',
+      email: 'nicolas@test.com',
+      phone: '+56912345678',
+      status: 'nuevo',
+      source: 'web_contact',
+      agentName: 'Sofía Valdés',
+      nextAction: 'Contactar consulta general',
+      notes: 'Quiero más información sobre sus servicios de corretaje en el sector oriente.',
+      createdAt: '2026-07-01T01:15:00Z',
+      leadType: 'general_contact',
+      subject: 'Consulta general',
+      message: 'Quiero más información sobre sus servicios de corretaje en el sector oriente.',
+      preferredContactMethod: 'whatsapp'
+    },
+    {
+      id: 'lead-10',
+      name: 'María González',
+      email: 'maria@test.com',
+      phone: '+56987654321',
+      status: 'nuevo',
+      source: 'web_owner',
+      agentName: 'Sofía Valdés',
+      nextAction: 'Contactar propietario para evaluación',
+      notes: 'Quiero vender mi departamento y necesito asesoría. Las Condes, Sector El Golf.',
+      createdAt: '2026-07-01T02:30:00Z',
+      leadType: 'owner_capture',
+      operationIntent: 'venta',
+      propertyType: 'departamento',
+      propertyComuna: 'Las Condes',
+      propertyAddress: 'Sector El Golf',
+      estimatedPrice: 850000000,
+      message: 'Quiero vender mi departamento y necesito asesoría.',
+      preferredContactMethod: 'telefono'
     }
   ],
   visits: [

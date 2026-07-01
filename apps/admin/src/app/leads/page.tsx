@@ -81,6 +81,7 @@ export default function LeadsList() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...newLead,
+          leadType: newLead.propertyId ? 'property_interest' : 'general_contact',
           agentName: 'Sofía Valdés',
           nextAction: newLead.nextAction || 'Contactar interesado para primer filtro'
         })
@@ -260,6 +261,8 @@ export default function LeadsList() {
               >
                 <option value="">Cualquier Canal</option>
                 <option value="web">Sitio Web Altavista</option>
+                <option value="web_contact">Web - Consulta General</option>
+                <option value="web_owner">Web - Solicitud Propietario</option>
                 <option value="portal">Portales Inmobiliarios</option>
                 <option value="manual">Manual / Teléfono</option>
               </select>
@@ -324,16 +327,43 @@ export default function LeadsList() {
 
                           <td className="py-4 px-4 text-slate-600 max-w-[180px] truncate">
                             {linkedProp ? (
-                              <span className="font-medium hover:text-teal-600 truncate block">
-                                {linkedProp.title}
-                              </span>
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-semibold text-slate-800 truncate block">
+                                  {linkedProp.title}
+                                </span>
+                                <span className="inline-flex items-center w-max px-1.5 py-0.5 rounded text-[9px] font-semibold bg-teal-50 text-teal-700 border border-teal-100/50">
+                                  Propiedad
+                                </span>
+                              </div>
+                            ) : lead.leadType === 'general_contact' ? (
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-medium text-slate-600">Consulta general</span>
+                                <span className="inline-flex items-center w-max px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-50 text-blue-700 border border-blue-100/50">
+                                  Contacto general
+                                </span>
+                              </div>
+                            ) : lead.leadType === 'owner_capture' ? (
+                              <div className="flex flex-col gap-0.5">
+                                <span className="font-medium text-slate-600">Captación de propietario</span>
+                                <span className="inline-flex items-center w-max px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-50 text-amber-700 border border-amber-100/50">
+                                  Propietario
+                                </span>
+                              </div>
                             ) : (
-                              <span className="text-slate-400 italic">Cualquiera</span>
+                              <div className="flex flex-col gap-0.5">
+                                <span className="text-slate-400 italic">Sin propiedad asociada</span>
+                                <span className="inline-flex items-center w-max px-1.5 py-0.5 rounded text-[9px] font-semibold bg-slate-50 text-slate-600 border border-slate-200">
+                                  General
+                                </span>
+                              </div>
                             )}
                           </td>
 
                           <td className="py-4 px-4 capitalize text-slate-500 font-medium">
-                            {lead.source === 'web' ? 'Web Altavista' : lead.source}
+                            {lead.source === 'web' ? 'Web Altavista' : 
+                             lead.source === 'web_contact' ? 'Contacto Web' : 
+                             lead.source === 'web_owner' ? 'Propietario Web' : 
+                             lead.source}
                           </td>
 
                           <td className="py-4 px-4">
@@ -389,13 +419,16 @@ export default function LeadsList() {
                   </div>
                 </div>
 
-                {/* Linked Property Details */}
+                {/* Linked Property or Request Details */}
                 {(() => {
                   const linkedProp = properties.find(p => p.id === selectedLead.propertyId);
-                  return (
-                    <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
-                      <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">Propiedad Solicitada</span>
-                      {linkedProp ? (
+                  if (linkedProp) {
+                    return (
+                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-100 space-y-1">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] text-slate-400 font-bold block uppercase">Propiedad Solicitada</span>
+                          <span className="inline-flex px-1.5 py-0.5 rounded text-[9px] font-semibold bg-teal-50 text-teal-700 border border-teal-100">Propiedad</span>
+                        </div>
                         <div>
                           <Link href={`/properties/${linkedProp.id}`} className="text-xs font-bold text-slate-800 hover:text-teal-600 flex items-center gap-1">
                             {linkedProp.title}
@@ -405,11 +438,66 @@ export default function LeadsList() {
                             {linkedProp.comuna} • {linkedProp.operation === 'venta' ? `${linkedProp.priceUF} UF` : `$${linkedProp.priceCLP.toLocaleString('es-CL')}`}
                           </p>
                         </div>
-                      ) : (
+                      </div>
+                    );
+                  } else if (selectedLead.leadType === 'general_contact') {
+                    return (
+                      <div className="p-3 bg-blue-50/40 rounded-xl border border-blue-100 space-y-1.5">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] text-blue-500 font-bold block uppercase">Consulta General</span>
+                          <span className="inline-flex px-1.5 py-0.5 rounded text-[9px] font-semibold bg-blue-50 text-blue-700 border border-blue-100">Contacto</span>
+                        </div>
+                        {selectedLead.subject && (
+                          <p className="text-xs font-bold text-slate-800">Asunto: {selectedLead.subject}</p>
+                        )}
+                        {selectedLead.preferredContactMethod && (
+                          <p className="text-[10px] text-slate-500 font-medium">Método preferido: <span className="capitalize font-semibold text-slate-700">{selectedLead.preferredContactMethod}</span></p>
+                        )}
+                      </div>
+                    );
+                  } else if (selectedLead.leadType === 'owner_capture') {
+                    return (
+                      <div className="p-3 bg-amber-50/40 rounded-xl border border-amber-100 space-y-2">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[10px] text-amber-600 font-bold block uppercase">Captación de Propietario</span>
+                          <span className="inline-flex px-1.5 py-0.5 rounded text-[9px] font-semibold bg-amber-50 text-amber-700 border border-amber-100">Propietario</span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-700">
+                          <div>
+                            <span className="text-[9px] text-slate-400 block">Intención</span>
+                            <span className="font-semibold capitalize text-slate-800">{selectedLead.operationIntent || 'no_definido'}</span>
+                          </div>
+                          <div>
+                            <span className="text-[9px] text-slate-400 block">Tipo Propiedad</span>
+                            <span className="font-semibold capitalize text-slate-800">{selectedLead.propertyType || 'No especificado'}</span>
+                          </div>
+                          <div className="col-span-2">
+                            <span className="text-[9px] text-slate-400 block">Ubicación / Dirección</span>
+                            <span className="font-semibold text-slate-850">{selectedLead.propertyComuna}{selectedLead.propertyAddress ? `, ${selectedLead.propertyAddress}` : ''}</span>
+                          </div>
+                          {selectedLead.estimatedPrice && (
+                            <div className="col-span-2">
+                              <span className="text-[9px] text-slate-400 block">Precio Estimado</span>
+                              <span className="font-bold text-slate-800">${selectedLead.estimatedPrice.toLocaleString('es-CL')}</span>
+                            </div>
+                          )}
+                          {selectedLead.preferredContactMethod && (
+                            <div className="col-span-2">
+                              <span className="text-[9px] text-slate-400 block">Método de Contacto</span>
+                              <span className="font-semibold capitalize text-slate-800">{selectedLead.preferredContactMethod}</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <span className="text-[10px] text-slate-400 font-bold block uppercase mb-1">Detalles de Lead</span>
                         <p className="text-xs text-slate-500 italic">Interés general o propiedad no asignada.</p>
-                      )}
-                    </div>
-                  );
+                      </div>
+                    );
+                  }
                 })()}
 
                 {/* Update Status Actions */}
