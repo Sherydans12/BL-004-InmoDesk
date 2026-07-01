@@ -20,8 +20,8 @@ RUN npm install --include=dev --include=optional --no-audit --no-fund
 # Copiar codigo fuente
 COPY . .
 
-# Verificar que lightningcss pueda resolver su binario nativo antes del build
-RUN node -e "require('lightningcss'); console.log('lightningcss ok')"
+# Verificar lightningcss desde el workspace que lo declara indirectamente.
+RUN cd apps/admin && node -e "require('lightningcss'); console.log('lightningcss ok')"
 
 # Build de produccion
 RUN npm run build

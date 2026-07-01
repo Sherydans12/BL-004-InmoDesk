@@ -44,6 +44,8 @@ El Dockerfile usa `node:22.13.0-bookworm-slim`, muestra diagnostico de Node/npm,
 
 Esta instalacion incluye `devDependencies` y `optionalDependencies` durante el build porque Tailwind CSS 4 usa `@tailwindcss/postcss` y `lightningcss`, que dependen de paquetes nativos opcionales por plataforma Linux. `NODE_ENV=production` se establece recien despues del build para no omitir dependencias necesarias.
 
+El diagnostico de `lightningcss` se ejecuta desde `apps/admin`, porque esa dependencia queda instalada bajo el workspace de Next.js.
+
 ---
 
 ## Puerto expuesto
