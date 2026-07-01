@@ -78,31 +78,63 @@ export default function SettingsPage() {
 <div id="inmodesk-properties-root"></div>
 
 <script>
-  // Cargar propiedades publicadas del corredor de forma dinámica
-  async function loadInmoDeskProperties() {
+  (async function() {
+    const container = document.getElementById('inmodesk-properties-root');
+    if (!container) return;
+
+    // Mostrar estado de carga inicial
+    container.innerHTML = \`<div style="text-align: center; padding: 40px; font-family: sans-serif; color: #64748b;">
+      <div style="display: inline-block; width: 24px; height: 24px; border: 3px solid #e2e8f0; border-top-color: #0d9488; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 8px;"></div>
+      <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
+      <div>Cargando propiedades...</div>
+    </div>\`;
+
     try {
-      const response = await fetch('http://localhost:3000/api/public/demo/properties');
+      const apiUrl = window.location.origin + '/api/public/demo/properties';
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error('Error al conectar con InmoDesk API');
       const properties = await response.json();
       
-      const container = document.getElementById('inmodesk-properties-root');
-      container.innerHTML = \`<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px;">
-        \${properties.map(p => \\\`
-          <div style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; font-family: sans-serif;">
-            <img src="\${p.mainImage}" style="width: 100%; h: 180px; object-fit: cover;" />
-            <div style="p: 15px;">
-              <h3 style="margin: 0; font-size: 16px;">\${p.title}</h3>
-              <p style="color: #64748b; font-size: 12px; margin: 5px 0 10px;">\${p.comuna}</p>
-              <div style="font-weight: bold; color: #0d9488;">\${p.operation === 'venta' ? p.priceUF + ' UF' : '$' + p.priceCLP.toLocaleString('es-CL')}</div>
+      if (properties.length === 0) {
+        container.innerHTML = \`<div style="text-align: center; padding: 40px; font-family: sans-serif; color: #64748b; border: 1px dashed #cbd5e1; border-radius: 12px;">
+          No hay propiedades publicadas disponibles actualmente.
+        </div>\`;
+        return;
+      }
+
+      let cardsHtml = '';
+      for (const p of properties) {
+        const priceText = p.operation === 'venta' 
+          ? p.priceUF + ' UF' 
+          : '$' + Number(p.priceCLP || 0).toLocaleString('es-CL');
+        const opLabel = p.operation === 'venta' ? 'Venta' : 'Arriendo';
+        const image = p.mainImage || 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=400&q=80';
+        
+        cardsHtml += \`<div style="border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background: #ffffff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+          <img src="\${image}" style="width: 100%; height: 180px; object-fit: cover;" alt="\${p.title}" />
+          <div style="padding: 15px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between;">
+            <div>
+              <h3 style="margin: 0; font-size: 15px; color: #0f172a; font-weight: 600; line-height: 1.4;">\${p.title}</h3>
+              <p style="color: #64748b; font-size: 12px; margin: 6px 0 12px;">📍 \${p.comuna}</p>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 10px; margin-top: 10px;">
+              <span style="font-size: 11px; font-weight: bold; text-transform: uppercase; color: #64748b; background: #f1f5f9; padding: 2px 6px; border-radius: 4px;">\${opLabel}</span>
+              <span style="font-size: 14px; font-weight: bold; color: #0d9488;">\${priceText}</span>
             </div>
           </div>
-        \\\`).join('')}
+        </div>\`;
+      }
+
+      container.innerHTML = \`<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; font-family: sans-serif;">
+        \${cardsHtml}
       </div>\`;
     } catch (err) {
       console.error('Error al cargar propiedades InmoDesk:', err);
+      container.innerHTML = \`<div style="text-align: center; padding: 40px; font-family: sans-serif; color: #e11d48; border: 1px solid #fecdd3; background: #fff1f2; border-radius: 12px;">
+        <strong>Error:</strong> No se pudieron cargar las propiedades. Intente más tarde.
+      </div>\`;
     }
-  }
-
-  loadInmoDeskProperties();
+  })();
 </script>`;
 
   const copyToClipboard = () => {

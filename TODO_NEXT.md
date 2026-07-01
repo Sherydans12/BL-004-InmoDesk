@@ -11,6 +11,13 @@ Próximos pasos de desarrollo y refinamiento del SaaS inmobiliario.
 - [x] Integrar endpoints de API REST de simulación y carga de datos en archivo local persistido (`db.json`).
 - [x] Dejar listo el widget de inserción frontend e instrucciones para la web pública del cliente.
 
+## 1.5. Completado (Fase 1.5 - Estabilización Técnica y Contrato API)
+- [x] **Asociación de Leads por Slug/ID**: Ajustada la API de Leads para resolver slugs de propiedades, validar que existan y estén publicadas antes de registrar.
+- [x] **Refactorización del Widget de Integración**: Corregidos estilos inline inválidos (`height` y `padding`), cargando datos dinámicamente y agregando estados de carga, manejo de errores y validaciones seguras de DOM.
+- [x] **Seguridad y Sanitización**: Confirmado que endpoints públicos de propiedades y leads filtran completamente campos privados como `internalNotes`, `documentationChecklist`, y datos de propietarios.
+- [x] **Estabilización de Types y ESLint**: Corregidas firmas de parámetros dynamic params de Next.js y solucionados todos los warnings de renderizado y tipos.
+- [x] **Documentación**: Contrato oficial de API pública redactado en `docs/16-public-api-contract.md`.
+
 ## 2. Siguientes Pasos de Producto (Fase B / C / D)
 - [ ] **Creación del Repositorio Altavista Propiedades**:
   - Implementar la demo del sitio web público externo (e.g. en Next.js o como plugin WordPress).

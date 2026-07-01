@@ -3,11 +3,10 @@ import { getPropertyBySlug } from '@/services/db';
 
 export async function GET(
   request: Request,
-  { params }: { params: any }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
-    const resolvedParams = await params;
-    const slug = resolvedParams.slug;
+    const { slug } = await params;
     const property = getPropertyBySlug(slug);
 
     if (!property || !property.isPublished) {

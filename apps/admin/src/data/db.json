@@ -492,6 +492,19 @@
       "nextAction": "Llamar por primera vez para calificar requerimiento",
       "notes": "Ingresó por formulario de contacto solicitando más detalles del depto de Cerro Colorado.",
       "createdAt": "2026-06-30T17:30:00Z"
+    },
+    {
+      "id": "lead-1782883610936",
+      "name": "Juan Perez",
+      "email": "juan.perez@gmail.com",
+      "phone": "+56912345678",
+      "status": "nuevo",
+      "source": "web",
+      "propertyId": "prop-1",
+      "agentName": "Rodrigo Fuentes",
+      "nextAction": "Llamar para calificar interesado web",
+      "notes": "Mensaje enviado desde formulario público de Altavista Propiedades: \"Hola, estoy muy interesado en esta casa moderna en San Damian.\"",
+      "createdAt": "2026-07-01T05:26:50.936Z"
     }
   ],
   "visits": [

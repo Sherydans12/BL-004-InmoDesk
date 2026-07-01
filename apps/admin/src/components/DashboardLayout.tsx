@@ -34,12 +34,16 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   useEffect(() => {
     // Check authentication
     const loggedIn = localStorage.getItem('inmodesk_logged_in');
-    if (loggedIn !== 'true') {
-      setIsAuthenticated(false);
-      router.push('/login');
-    } else {
-      setIsAuthenticated(true);
-    }
+    const authStatus = loggedIn === 'true';
+    
+    const timer = setTimeout(() => {
+      setIsAuthenticated(authStatus);
+      if (!authStatus) {
+        router.push('/login');
+      }
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, [router]);
 
   if (isAuthenticated === null) {

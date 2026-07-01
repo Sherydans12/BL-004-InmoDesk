@@ -53,3 +53,8 @@ BL-004-InmoDesk/
 
 - **Email**: `sofia.valdes@inmodesk.cl`
 - **Contraseña**: `inmodesk2026`
+
+## Integración y API Pública
+
+InmoDesk expone una API pública y segura para conectar directamente tu catálogo con sitios web externos. Consulta el [Contrato de la API Pública](file:///c:/Users/nicol/Documents/BL-004-InmoDesk/docs/16-public-api-contract.md) para más detalles sobre los payloads, sanitización y respuestas.
+

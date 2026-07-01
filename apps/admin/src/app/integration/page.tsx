@@ -284,12 +284,17 @@ export default function IntegrationPage() {
                 }`}>
                   {leadResult.success ? (
                     <div className="space-y-3">
-                      <div className="flex items-center gap-1.5">
-                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600" />
-                        <span>¡Lead inyectado exitosamente en InmoDesk!</span>
+                      <div className="flex items-center gap-1.5 flex-wrap">
+                        <CheckCircle2 className="h-4.5 w-4.5 text-emerald-600 shrink-0" />
+                        <span>
+                          ¡Lead inyectado exitosamente en InmoDesk!
+                          {leadResult.data?.property?.title && (
+                            <> para la propiedad <strong className="text-emerald-950 font-bold">{leadResult.data.property.title}</strong></>
+                          )}
+                        </span>
                       </div>
                       <p className="text-[11px] text-emerald-800/80 font-normal leading-relaxed">
-                        El lead fue registrado de forma segura. Puedes ir al panel administrativo de InmoDesk para avanzar su negociación.
+                        El lead fue registrado de forma segura con la propiedad asociada. Puedes ir al panel administrativo de InmoDesk para avanzar su negociación.
                       </p>
                       <div className="flex gap-2 border-t border-emerald-100 pt-3 mt-1 font-sans">
                         <Link 

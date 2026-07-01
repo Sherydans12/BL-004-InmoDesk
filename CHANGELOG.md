@@ -1,5 +1,14 @@
 # Changelog — BL-004 InmoDesk
 
+## 0.1.1 — Estabilización Técnica y Contrato API (Fase 1.5)
+
+- **Asociación Dinámica de Leads**: Modificado el endpoint POST `/api/public/demo/leads` para resolver propiedades por `propertySlug` o `propertyId`. Añadidas validaciones de existencia y de estado publicado (`isPublished === true`).
+- **Simulador de Formulario**: Actualizado el formulario simulado en `/integration` para enviar el slug de la propiedad y mostrar el título dinámico en el alert de éxito.
+- **Refactorización del Widget**: Corregidos estilos de la integración JS en `/settings` (de `h: 180px` a `height: 180px` y `p: 15px` a `padding: 15px`). Rediseñado el script de integración para cargar dinámicamente propiedades desde `/api/public/demo/properties`, controlar estados de carga/error, evitar romper ante contenedores inexistentes y evitar dependencias de terceros.
+- **Sanitización de Respuestas Públicas**: Verificado que los endpoints de propiedades públicas y leads limpien en su totalidad la información de notas internas, dueños (`ownerId`), checklist de documentos internos, etc.
+- **Documentación de API**: Redactado el contrato de integración en `docs/16-public-api-contract.md`.
+- **Estabilización de Compilación**: Resueltos warnings de renderizado asíncrono en React effects y tipados en Next.js. El proyecto compila y lintéa con cero errores.
+
 ## 0.1.0 — Demo Comercial y Panel Admin Inicial (MVP v0)
 
 - **Estructura del Proyecto**: Inicialización del monorepo `npm workspaces` con la app `admin` basada en Next.js 16 (App Router), Tailwind CSS v4, TypeScript y Lucide React.
