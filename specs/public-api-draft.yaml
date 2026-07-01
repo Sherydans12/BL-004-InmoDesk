@@ -1,0 +1,86 @@
+openapi: 3.0.3
+info:
+  title: BL-004 InmoDesk Public API Draft
+  version: 0.0.1
+  description: Draft conceptual de API pública para integración con sitios inmobiliarios.
+paths:
+  /public/{tenantSlug}/properties:
+    get:
+      summary: Listar propiedades publicadas de un tenant
+      parameters:
+        - name: tenantSlug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: operationType
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [SALE, RENT]
+        - name: propertyType
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: commune
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de propiedades publicadas
+  /public/{tenantSlug}/properties/{propertySlug}:
+    get:
+      summary: Obtener detalle público de una propiedad
+      parameters:
+        - name: tenantSlug
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: propertySlug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalle público de propiedad
+        '404':
+          description: Propiedad no encontrada o no publicada
+  /public/{tenantSlug}/leads:
+    post:
+      summary: Crear lead desde sitio público
+      parameters:
+        - name: tenantSlug
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, phone, propertyId]
+              properties:
+                propertyId:
+                  type: string
+                name:
+                  type: string
+                phone:
+                  type: string
+                email:
+                  type: string
+                message:
+                  type: string
+                source:
+                  type: string
+                  example: PUBLIC_WEBSITE
+      responses:
+        '201':
+          description: Lead creado

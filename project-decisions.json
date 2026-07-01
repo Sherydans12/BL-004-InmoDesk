@@ -1,0 +1,99 @@
+{
+  "project": {
+    "internal_code": "BL-004",
+    "provisional_commercial_name": "BaseLogic InmoDesk",
+    "repository": "https://github.com/Sherydans12/BL-004-InmoDesk",
+    "status": "initial_product_definition",
+    "created_context_date": "2026-06-23"
+  },
+  "strategic_decisions": [
+    {
+      "id": "DEC-001",
+      "title": "Producto principal como SaaS inmobiliario reutilizable",
+      "decision": "BL-004 será un SaaS inmobiliario reutilizable, no una landing pública aislada.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-002",
+      "title": "Panel admin como núcleo del producto",
+      "decision": "El componente reutilizable principal será el panel de administración, junto con API/capa de integración.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-003",
+      "title": "Sitios públicos variables",
+      "decision": "Los sitios públicos de clientes no serán reutilizables de forma rígida porque variarán mucho en diseño y tecnología.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-004",
+      "title": "Compatibilidad conceptual con WordPress",
+      "decision": "El sistema debe poder integrarse con sitios WordPress mediante bloque HTML, API, widget o plugin futuro.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-005",
+      "title": "Demo pública Altavista separada",
+      "decision": "Altavista Propiedades será un sitio público demo en repo/carpeta aparte, no parte acoplada del producto principal.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-006",
+      "title": "MVP v0 como demo comercial",
+      "decision": "El primer objetivo será una demo comercial funcional para reuniones, no el producto completo final.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-007",
+      "title": "Foco inicial en corredores y pequeñas corredoras",
+      "decision": "El público inicial serán corredores independientes, agentes inmobiliarios y corredoras pequeñas/medianas.",
+      "status": "accepted"
+    },
+    {
+      "id": "DEC-008",
+      "title": "Separar datos internos y públicos",
+      "decision": "El sistema debe separar datos internos como propietario, comisión, notas y dirección exacta de los datos públicos visibles.",
+      "status": "accepted"
+    }
+  ],
+  "mvp_v0": {
+    "goal": "Demo comercial funcional y visualmente potente",
+    "core_flow": "propiedad -> publicacion -> lead -> seguimiento -> visita -> pipeline",
+    "included_modules": [
+      "dashboard",
+      "properties",
+      "property_gallery",
+      "leads",
+      "pipeline",
+      "visits_agenda",
+      "owners",
+      "public_settings",
+      "public_demo_connection"
+    ],
+    "excluded_initially": [
+      "wordpress_plugin",
+      "electronic_signature",
+      "payments",
+      "billing",
+      "external_portal_auto_publish",
+      "native_mobile_app",
+      "advanced_ai",
+      "automatic_valuation",
+      "advanced_legal_documents"
+    ]
+  },
+  "public_demo": {
+    "name": "Altavista Propiedades",
+    "repository": "pending",
+    "relationship": "separate_repo_or_folder",
+    "purpose": "Public demo website to show a custom real estate front-end connected to BL-004"
+  },
+  "pending_decisions": [
+    "Stack técnico definitivo",
+    "Si v0 usará backend real mínimo o datos mock/locales",
+    "Nombre comercial final",
+    "Repositorio final de Altavista Propiedades",
+    "Dominio/subdominio demo",
+    "Modelo comercial y precios"
+  ]
+}

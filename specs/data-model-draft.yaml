@@ -1,0 +1,54 @@
+entities:
+  Tenant:
+    description: Corredora, agente independiente o inmobiliaria.
+    fields:
+      - id
+      - commercialName
+      - logoUrl
+      - email
+      - phone
+      - whatsapp
+      - publicSlug
+      - primaryColor
+  User:
+    description: Usuario del panel.
+    roles:
+      - ADMIN
+      - AGENT
+      - ASSISTANT
+  Property:
+    description: Propiedad administrada por el tenant.
+    statuses:
+      - DRAFT
+      - AVAILABLE
+      - RESERVED
+      - SOLD
+      - RENTED
+      - PAUSED
+      - ARCHIVED
+    operationTypes:
+      - SALE
+      - RENT
+  Lead:
+    description: Interesado captado desde web, WhatsApp, referido o registro manual.
+    statuses:
+      - NEW
+      - CONTACTED
+      - VISIT_SCHEDULED
+      - VISITED
+      - NEGOTIATION
+      - CLOSED
+      - LOST
+    sources:
+      - PUBLIC_WEBSITE
+      - MANUAL
+      - WHATSAPP
+      - REFERRAL
+      - EXTERNAL_PORTAL
+  Visit:
+    description: Visita agendada entre lead, propiedad y agente.
+    statuses:
+      - SCHEDULED
+      - COMPLETED
+      - CANCELLED
+      - RESCHEDULED
