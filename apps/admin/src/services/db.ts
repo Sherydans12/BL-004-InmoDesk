@@ -3,16 +3,27 @@ import path from 'path';
 import { DbSchema, Property, Lead, Owner, Visit, Settings } from '../types';
 import { initialData } from '../data/initialData';
 
-const DB_FILE_PATH = path.join(process.cwd(), 'src/data/db.json');
+/**
+ * Ruta del archivo de base de datos mock.
+ *
+ * En producción/Coolify: usa la variable de entorno INMODESK_DB_FILE_PATH
+ * que debe apuntar a un volumen persistente (ej: /app/storage/db.json).
+ *
+ * En desarrollo local: usa el fallback en src/data/db.json.
+ */
+const DB_FILE_PATH = process.env.INMODESK_DB_FILE_PATH
+  ? path.resolve(process.env.INMODESK_DB_FILE_PATH)
+  : path.join(process.cwd(), 'src/data/db.json');
 
 function ensureDbFile() {
   if (!fs.existsSync(DB_FILE_PATH)) {
-    // Ensure directory exists
+    // Crear directorio automáticamente si no existe (ej: /app/storage en Coolify)
     const dir = path.dirname(DB_FILE_PATH);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
     fs.writeFileSync(DB_FILE_PATH, JSON.stringify(initialData, null, 2), 'utf-8');
+    console.log(`[InmoDesk DB] Base mock inicializada en: ${DB_FILE_PATH}`);
   }
 }
 

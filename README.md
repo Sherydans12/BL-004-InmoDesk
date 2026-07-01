@@ -58,3 +58,47 @@ BL-004-InmoDesk/
 
 InmoDesk expone una API pública y segura para conectar directamente tu catálogo con sitios web externos. Consulta el [Contrato de la API Pública](file:///c:/Users/nicol/Documents/BL-004-InmoDesk/docs/16-public-api-contract.md) para más detalles sobre los payloads, sanitización y respuestas.
 
+---
+
+## Deploy en Coolify
+
+Dominio sugerido: `https://inmodesk-demo.baselogic.cl`
+
+**Build Pack:** Nixpacks o Dockerfile
+
+**Comandos:**
+
+| Paso    | Comando         |
+|---------|-----------------|
+| Install | `npm install`   |
+| Build   | `npm run build` |
+| Start   | `npm run start` |
+
+**Puerto expuesto:** `3000`
+
+**Variables de entorno:**
+
+```env
+NODE_ENV=production
+INMODESK_DB_FILE_PATH=/app/storage/db.json
+```
+
+**Persistent Storage:** Montar volumen en `/app/storage`
+
+**Verificación:**
+- `GET /api/health` → `{ "status": "ok", "service": "BL-004 InmoDesk", "timestamp": "..." }`
+- `GET /api/public/demo/properties` → catálogo de propiedades publicadas
+
+> Guía completa en [COOLIFY_DEPLOY.md](./COOLIFY_DEPLOY.md).
+
+---
+
+## CORS — Nota de Seguridad
+
+Los endpoints públicos responden con `Access-Control-Allow-Origin: *` para la demo.
+
+**Para producción real**, restringir el origen a:
+
+```
+https://altavista-demo.baselogic.cl
+```
