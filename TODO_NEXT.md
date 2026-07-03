@@ -17,11 +17,11 @@ Próximos pasos de desarrollo y refinamiento del SaaS inmobiliario.
 - [x] **Seguridad y Sanitización**: Confirmado que endpoints públicos de propiedades y leads filtran completamente campos privados como `internalNotes`, `documentationChecklist`, y datos de propietarios.
 - [x] **Estabilización de Types y ESLint**: Corregidas firmas de parámetros dynamic params de Next.js y solucionados todos los warnings de renderizado y tipos.
 - [x] **Documentación**: Contrato oficial de API pública redactado en `docs/16-public-api-contract.md`.
+- [x] **Limpieza y Preparación para Demo Comercial**: Purga de datos mock en `db.json`, sincronización de `initialData.ts`, consistencia en pipeline y agenda, corrección de credenciales por defecto en `/login` y comprobación exitosa de build local.
 
 ## 2. Siguientes Pasos de Producto (Fase B / C / D)
-- [ ] **Creación del Repositorio Altavista Propiedades**:
-  - Implementar la demo del sitio web público externo (e.g. en Next.js o como plugin WordPress).
-  - Conectar el widget HTML o consumir la API pública `/api/public/demo/properties` para renderizar el catálogo vivo.
+- [x] **Creación y Despliegue de Altavista Propiedades**:
+  - Implementación del sitio web público externo de demostración y conexión activa con los endpoints públicos de InmoDesk.
 - [ ] **Migración a Base de Datos de Producción**:
   - Reemplazar la base de datos mock basada en `fs` con PostgreSQL / Prisma.
   - Diseñar esquemas relacionales robustos basados en `src/types/index.ts`.

@@ -1,5 +1,14 @@
 # Changelog — BL-004 InmoDesk
 
+## 0.1.3 — Limpieza de Datos y Preparación de Demo Comercial (v1.0.0-rc)
+
+- **Limpieza de Datos de Demostración**: Reemplazados todos los datos ficticios, comentarios temporales y correos de prueba por datos reales, atractivos y coherentes que simulan el mercado de corretaje premium de Chile (precios en UF/CLP reales, comunas de Las Condes, Providencia, Vitacura, Ñuñoa, Colina/Chicureo, etc.).
+- **Coherencia en Pipeline Kanban**: Configurado un pipeline comercial realista que incluye múltiples leads en columna "Nuevos", leads en "Contactados", "En Negociación", y soporte para prospectos sin propiedad asociada (consultas generales o captaciones) sin romper el layout.
+- **Coherencia en Agenda de Visitas**: Establecida la agenda con una visita futura programada, una visita realizada en el pasado y otra reprogramada en el futuro, vinculadas correctamente a interesados y propiedades.
+- **Ajuste de Credenciales Predeterminadas**: Modificados los valores de inicio de sesión precargados en la pantalla de login para que coincidan exactamente con la agente de corretaje oficial Sofía Valdés (`sofia.valdes@inmodesk.cl` / `inmodesk2026`).
+- **Sincronización de Documentación y API**: Corregidas rutas `/api/public/demo/contact-leads` y `/api/public/demo/owner-leads` en la guía de despliegue `COOLIFY_DEPLOY.md`.
+- **Validación de Compilación**: Ejecutado un build de producción completo confirmando que la aplicación compila y empaqueta de forma exitosa y sin errores de tipado o de linting.
+
 ## 0.1.2 — Reglas de Publicación Homogéneas
 
 - **Función Utilitaria Reutilizable**: Creada la función `isPubliclyAvailableProperty` (con type guard en TypeScript) que centraliza las reglas de disponibilidad pública (la propiedad debe existir, `isPublished === true`, y su estado no debe ser `borrador` ni `archivada`).

@@ -6,8 +6,8 @@ import { Building, Lock, Mail, ArrowRight } from 'lucide-react';
 
 export default function Login() {
   const router = useRouter();
-  const [email, setEmail] = useState('demo@baselogic.cl');
-  const [password, setPassword] = useState('demo1234');
+  const [email, setEmail] = useState('sofia.valdes@inmodesk.cl');
+  const [password, setPassword] = useState('inmodesk2026');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 

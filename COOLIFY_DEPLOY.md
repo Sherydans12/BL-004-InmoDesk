@@ -147,8 +147,8 @@ Los endpoints públicos consumidos son:
 - `GET /api/public/demo/properties` — catálogo completo
 - `GET /api/public/demo/properties/[slug]` — detalle de propiedad
 - `POST /api/public/demo/leads` — captura de prospectos
-- `POST /api/public/demo/contact` — formulario de contacto general
-- `POST /api/public/demo/owner-capture` — captación de propietarios
+- `POST /api/public/demo/contact-leads` — formulario de contacto general
+- `POST /api/public/demo/owner-leads` — captación de propietarios
 
 ---
 
